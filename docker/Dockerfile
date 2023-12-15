@@ -20,15 +20,15 @@ apt update && \
 apt install -y php8.0 php8.0-curl php8.0-zip php8.0-gd php8.0-imap php8.0-mysql php8.0-xml
 
 #php8.0 and apache2 config
-COPY config/php-minthcm.ini /etc/php/8.0/mods-available/php-minthcm.ini
+COPY docker/config/php-minthcm.ini /etc/php/8.0/mods-available/php-minthcm.ini
 RUN ln -s /etc/php/8.0/mods-available/php-minthcm.ini /etc/php/8.0/cli/conf.d/20-minthcm.ini 
 RUN ln -s /etc/php/8.0/mods-available/php-minthcm.ini /etc/php/8.0/apache2/conf.d/20-minthcm.ini 
-COPY config/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY docker/config/000-default.conf /etc/apache2/sites-available/000-default.conf
 
-COPY script/generate_config.php /var/www/script/
+COPY docker/script/generate_config.php /var/www/script/
 
 #RUN SERVICES
-COPY script/start.sh /usr/local/bin/start.sh
+COPY docker/script/start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 CMD bash -C '/usr/local/bin/start.sh';'bash'
 
